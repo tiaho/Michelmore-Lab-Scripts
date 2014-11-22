@@ -1,6 +1,8 @@
 #!usr/bin/perl
 #filter_markers.pl
 
+# filters markers for a certain window size and fills in missing data
+
 use strict; use warnings;
 use POSIX;
 use Data::Dumper;
