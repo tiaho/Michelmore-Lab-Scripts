@@ -51,11 +51,11 @@ while (<fasta_file>){
 		my $replace;
 		my $name = $1;
 		if (exists $repeat_types{$name}){ # repeats that are in the annotated sequences file
-			$replace = ">" . $name . "#LTR/" . $repeat_types{$name} . " ltrharvest";
+			$replace = ">" . $name . "#Retrotransposon/LTR/" . $repeat_types{$name} . " ltrharvest";
 			$_ =~ s/>\w+/$replace/;
 			print output_file "$_\n";
 		} else{ # repeats that are not in the annotated sequences file
-			$replace = ">" . $name . "#LTR/Unknown ltrharvest";
+			$replace = ">" . $name . "#Retrotransposon/LTR/Unknown ltrharvest";
 			$_ =~ s/>\w+/$replace/;;
 			print output_file "$_\n";
 		}
