@@ -1,6 +1,10 @@
 README.md
 ###Description of the files
 
+** add_ltr_types.pl**
+
+* adds classificatino for the LTRs
+
 **add_repeat_types.pl**
 
 * adds classification for the repeats
