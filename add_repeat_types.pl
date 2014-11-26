@@ -44,19 +44,19 @@ while (<repeat_infile>){
 	if ($_ =~ /^>R=(\d+)/){
 		my $replace;
 		my $number = $1;
-		if (exists $repeat_types{$1}){
-			$replace = ">" . $prefix . $count . $repeat_types{$1} . " ";
+		if (exists $repeat_types{$number}){ # repeats that are in the REPCLASS output file
+			$replace = ">" . $prefix . $count . $repeat_types{$number} . " ";
 			$_ =~ s/>\S*\s/$replace/;
 			$_ = $_ . " R=" . $number;
 			print output_file "$_\n";
-		} else{
+		} else{ # repeats that are not in the REPCLASS output file
 			$replace = ">" . $prefix . $count . "#Unknown ";
 			$_ =~ s/>\S*\s/$replace/;
 			$_ = $_ . " R=" . $number;
 			print output_file "$_\n";
 		}
 		$count++;
-	}else{
+	}else{ # non header lines
 		print output_file "$_\n";
 	}
 }
