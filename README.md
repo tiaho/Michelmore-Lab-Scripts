@@ -1,7 +1,7 @@
 README.md
 ###Description of the files
 
-** add_ltr_types.pl**
+**add_ltr_types.pl**
 
 * adds classification for the LTRs
 
