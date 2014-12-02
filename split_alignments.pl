@@ -1,7 +1,7 @@
 #!usr/bin/perl
 # split_alingments.pl
 
-# splits a protein alignment by half, and splits the nucleotide alingment based on the number of amino acids/gaps present
+# splits a protein alignment by half, and splits the nucleotide sequence based on the number of amino acids/gaps present
 
 use strict;
 use warnings;
