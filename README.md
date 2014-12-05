@@ -9,6 +9,10 @@ README.md
 
 * adds classification for the repeats
 
+**extract_coge_stats.pl**
+
+* extracts some summary statistics from CoGe analyses
+
 **filter_markers.pl**
 
 * filters markers for a certain window size and fills in missing data
