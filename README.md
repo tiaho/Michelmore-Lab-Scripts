@@ -17,6 +17,10 @@ README.md
 
 * filters markers for a certain window size and fills in missing data
 
+**filtering_for_circos.pl**
+
+* filters output files from dag_mergeBlock_getLinks_v4.pl to prepare for plotting with Circos
+
 **split_alingments.pl**
 
 * splits a protein alignment by half, and splits the nucleotide sequence based on the number of amino acids/gaps present
