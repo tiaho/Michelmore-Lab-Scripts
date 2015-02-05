@@ -41,12 +41,12 @@ for my $sequence (keys %max_bp){
 
 # reads through the gff file and puts the items into windows
 my %window_count;
-open (my $gff_file, "<", $gff) or die "Cannot open $gff";
+open ($gff_file, "<", $gff) or die "Cannot open $gff";
 while (<$gff_file>){
 	chomp;
 	my ($sequence, undef, undef, $start, $stop, undef, undef, undef, undef) = split("\t", $_);
-	for my $open (sort { $a <=> $b } keys $windows{$sequence}){
-		for my $close (keys $windows{$sequence}{$open}){
+	for my $open (sort { $a <=> $b } keys %{ $windows{$sequence} }){
+		for my $close (keys %{ $windows{$sequence}{$open} }){
 			if (($start >= $open and $start <= $close) or ($stop >= $open and $stop <= $close) or ($start <= $open and $stop >= $close)){
 				if (exists $window_count{$sequence}{$open}{$close}){
 					$window_count{$sequence}{$open}{$close}++;
@@ -61,8 +61,8 @@ close($gff_file);
 
 # prints the sequence, windows, and counts
 for my $sequence (sort keys %window_count){
-	for my $open (sort { $a <=> $b } keys $window_count{$sequence}){
-		for my $close (keys $window_count{$sequence}{$open}){
+	for my $open (sort { $a <=> $b } keys %{ $window_count{$sequence} }){
+		for my $close (keys %{ $window_count{$sequence}{$open} }){
 			print "$sequence\t$open\t$close\t$window_count{$sequence}{$open}{$close}\n";
 		}
 	}
