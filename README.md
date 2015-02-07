@@ -13,6 +13,10 @@ README.md
 
 * extracts some summary statistics from CoGe analyses
 
+**extract_predicted_protein_domains.pl**
+
+* extracts the predicted protein domains predicted by HMMER3
+
 **filter_markers.pl**
 
 * filters markers for a certain window size and fills in missing data
