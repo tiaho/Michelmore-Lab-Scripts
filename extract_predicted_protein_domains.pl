@@ -25,12 +25,12 @@ open(my $outfile_table, ">", $output_table) or die "Cannot open $output_table"; 
 while (<$hmm_file>){
 	chomp;
 	if ($_ =~ /^Query:/){ # extracts the query name
-		$_ =~ /\s(\w+)\s/;
+		$_ =~ /\s(\S+)\s/;
 		$query = $1;
 		# print "$query\n";
 	}
 	if ($_ =~ /^>>/){ # identifies the individual domain annotations
-		$_ =~ /^>>\s(\w+\.\w+)\s/;
+		$_ =~ /^>>\s(\S+)\s/;
 		$name = $1;
 		# print "$name\n";
 		$count = 1; # resets the count for each sequence
@@ -84,7 +84,7 @@ open (my $protein_file, "<", $protein) or die "Cannot open $protein"; # extracts
 open (my $outfile_protein, ">", $output_protein) or die "Cannot open $output_protein";
 while (<$protein_file>){
 	chomp;
-	if ($_ =~ /^>(\w+\.\w+)\s/){ # header line
+	if ($_ =~ /^>(\S+)\s/){ # header line
 		$seq = $1;
 		# print "$seq\n";
 		if (defined $info{$seq}){ # matches a sequence we have stored in the hash
@@ -123,7 +123,7 @@ open (my $cds_file, "<", $cds) or die "Cannot open $cds"; # extracts the nucleot
 open (my $outfile_nuc, ">", $output_nuc) or die "Cannot open $output_nuc";
 while (<$cds_file>){
 		chomp;
-	if ($_ =~ /^>(\w+\.\w+)\s/){ # header line
+	if ($_ =~ /^>(\S+)\s/){ # header line
 		$seq = $1;
 		# print "$seq\n";
 		if (defined $info{$seq}){ # matches a sequence we have stored in the hash
