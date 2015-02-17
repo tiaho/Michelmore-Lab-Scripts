@@ -12,7 +12,7 @@ my ($directory, $fasta, $prefix) = @ARGV;
 
 opendir(my $opendir, $directory) or die "Cannot open $directory";
 while (my $file = readdir($opendir)){
-	next if ($file =~ /\./); # skips the . and .. folders
+	next if ($file =~ /^\./); # skips the . and .. folders
 	my $filepath = $directory . "/" . $file;
 	system`/home/sreyesch/scripts/FastaTools/Fasta_retriever.pl $fasta $filepath $prefix`;
 	my $file_for_clustal = $prefix . ".fasta";
