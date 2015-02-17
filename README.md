@@ -17,6 +17,10 @@ README.md
 
 * extracts the predicted protein domains predicted by HMMER3
 
+**extract_sequences_run_clustal.pl**
+
+* extracts sequences needed for multiple sequence alignments, then runs clustal
+
 **filter_markers.pl**
 
 * filters markers for a certain window size and fills in missing data
