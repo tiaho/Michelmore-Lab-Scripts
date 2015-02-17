@@ -13,12 +13,14 @@ my %info;
 my $skip  = "yes";
 my $count = 0;
 my ($query, $name);
+
+# reads the infernal output and extracts the needed information
 open (my $fh, "<", $file) or die "Cannot open $file";
 while (<$fh>){
 	chomp;
 
 	if ($_ =~ /^Query:\s+(\w+)/){
-		$query = $1;;
+		$query = $1;
 	}
 
 	if ($_ =~ /^>>/){
@@ -28,7 +30,7 @@ while (<$fh>){
 		$count = 0;
 	}
 	if ($skip eq "yes"){
-		if ($_ =~ /^\s+\(/){
+		if ($_ =~ /^\s+\(/){ # extracts information from the table near the top of the file
 			$_ =~ s/\s+/ /g; # replaces multiple spaces with one space
 			my @elements = split(" ", $_);
 			$name = $elements[5];
@@ -38,7 +40,7 @@ while (<$fh>){
 		next;
 	}
 
-	if ($count == 3){
+	if ($count == 3){ # extracts information from the individual sequence alignments below
 		$_ =~ s/\s+/ /g; # replaces multiple spaces with one space
 		my @elements = split(" ", $_);
 		$info{$name}{score} = $elements[3];
@@ -47,8 +49,9 @@ while (<$fh>){
 	}
 	$count++;
 }
-close($fh);;
+close($fh);
 
+# prints the gff file
 $count = 1;
 my $outfile = $file . ".gff3";
 open (my $outfh, ">", $outfile) or die "Cannot open $outfile";
