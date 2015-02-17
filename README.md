@@ -33,6 +33,10 @@ README.md
 
 * determines the number of items in a gff file that are in a particular window size across a genome
 
+**parse_infernal_output.pl**
+
+* parses the infernal output into a gff file
+
 **split_alingments.pl**
 
 * splits a protein alignment by half, and splits the nucleotide sequence based on the number of amino acids/gaps present
