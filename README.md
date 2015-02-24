@@ -29,6 +29,10 @@ README.md
 
 * filters output files from dag_mergeBlock_getLinks_v4.pl to prepare for plotting with Circos
 
+**find_chr_range_coge.pl**
+
+* finds the chromosome ranges of the two genomes in CoGe comparison files
+
 **gff_items_windows.pl**
 
 * determines the number of items in a gff file that are in a particular window size across a genome
