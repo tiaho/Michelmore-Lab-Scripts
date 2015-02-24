@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 
-die "Enter the CoGe comparison.txt file" unless @ARGV == 1;
+die "Enter the CoGe condensed.txt file" unless @ARGV == 1;
 
 my $file = $ARGV[0];
 my %info;
