@@ -9,6 +9,10 @@ README.md
 
 * adds classification for the repeats
 
+**build_calibrate_cm_infernal.pl**
+
+* builds and calibrates covariance models in infernal for multiple alignments
+
 **extract_coge_stats.pl**
 
 * extracts some summary statistics from CoGe analyses
