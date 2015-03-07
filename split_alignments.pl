@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 
-die "Usage: <protein alignment file> <nucleotide fasta file> <prefix for output files>\n" unless @ARGV == 3;
+die "Usage: <protein alignment file in clustal format> <nucleotide fasta file> <prefix for output files>\n" unless @ARGV == 3;
 
 my ($align, $seq, $prefix) = @ARGV;
 
