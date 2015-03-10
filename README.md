@@ -45,6 +45,10 @@ README.md
 
 * parses the infernal output into a gff file
 
+**parse_infernal_output2.pl**
+
+* parses the infernal output into a gff file, also outputs a table
+
 **split_alingments.pl**
 
 * splits a protein alignment by half, and splits the nucleotide sequence based on the number of amino acids/gaps present
