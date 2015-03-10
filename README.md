@@ -13,6 +13,11 @@ README.md
 
 * builds and calibrates covariance models in infernal for multiple alignments
 
+**coge_filter.pl**
+
+* runs other scripts that filters the CoGe condensed.txt files
+* also extracts the chromosome range for the genomes in comparison
+
 **extract_coge_stats.pl**
 
 * extracts some summary statistics from CoGe analyses
