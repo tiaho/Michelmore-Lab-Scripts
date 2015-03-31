@@ -1,7 +1,7 @@
 #!usr/bin/perl
 #dn_ds_calculator.pl
 
-# calculate the divergence of a set of sequences by kn/ks
+# calculates the divergence of a set of sequences by kn/ks
 # output is named results.txt
 
 use strict;
