@@ -28,9 +28,17 @@ open(my $outfile, ">", $gff3) or die "Cannot open $gff3\n";
 while (<$infile>){
 	chomp;
 	my ($id, $name, $divergence, $estimatedage) = split("\t", $_);
-	my ($ltr_seq, $coords) = split("__", $name);
+	my ($ltr_seq, $coords, $start, $end);
+	if ($_ =~ /__/){
+		($ltr_seq, $coords) = split("__", $name);
+		($start, $end) = split("_", $coords);
+	} else {
+		my @splitted = split("_", $name);
+		$end = pop @splitted;
+		$start = pop @splitted;
+		$ltr_seq = join("_", @splitted);
+	}
 	my $seq = substr($ltr_seq, 5);
-	my ($start, $end) = split("_", $coords);
 	my $cluster_type;
 	if (exists $cluster_type_info{$id}){ # checks to see if this cluster type exists
 		$cluster_type = $cluster_type_info{$id};
