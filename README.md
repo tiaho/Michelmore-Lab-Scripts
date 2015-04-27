@@ -51,6 +51,10 @@ README.md
 
 * determines the number of items in a gff file that are in a particular window size across a genome
 
+**ltr_to_gff3_parser.pl**
+
+* parses the Domains_Ages.txt and FinalClusters.Annotations.txt.classified.txt files to a gff3 file
+
 **parse_infernal_output.pl**
 
 * parses the infernal output into a gff file
