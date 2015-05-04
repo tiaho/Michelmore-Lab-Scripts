@@ -28,7 +28,7 @@ while (my $directory2 = readdir(maindir)){
 				open(fh, "<", $filepath) or die "Cannot open $filepath\n"; # opens the condensed stats files
 				while (<fh>){
 					chomp;
-					if ($_ =~ /(\w+\s\w+\s\w+\s\w+\s?\w*\s?\w*\s?\w*\s?\w*\s?\w*)\t(\d+\.?\d+)/){ # looks for the 5 lines that we want to extract data from
+					if ($_ =~ /(\w+\s\w+\s\w+\s\w+\s?\w*\s?\w*\s?\w*\s?\w*\s?\w*)\t(\d+\.?\d*)/){ # looks for the 7 lines that we want to extract data from
 						my $cat = $1; # the category
 						my $num = $2; # the numerical value
 						if ($first == 1){ # only wants to print the headers once
