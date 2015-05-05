@@ -51,6 +51,7 @@ while(<$fh>){
 	if ($_ =~ /^\/\//){ # end of a stockholm alignment
 		$p = "no"; # don't print anything until we find the next desired type
 		$temp = undef; # clears temp variable
+		$type = "0"; # clears the type variable
 	}
 
 	# searches for the types we want
