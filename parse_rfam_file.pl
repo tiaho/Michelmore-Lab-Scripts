@@ -61,8 +61,6 @@ while(<$fh>){
 			$type = $ribozyme;
 		} elsif ($_ =~ /Gene; rRNA;/){
 			$type = $rrna;
-		} elsif ($_ =~ /Gene; snRNA;/){
-			$type = $snrna;
 		} elsif ($_ =~ /Gene; snRNA; snoRNA; CD-box;/){
 			$type = $snrna_snorna_cdbox;
 		} elsif ($_ =~ /Gene; snRNA; snoRNA; HACA-box;/){
@@ -71,6 +69,8 @@ while(<$fh>){
 			$type = $snrna_snorna_scarna;
 		} elsif ($_ =~ /Gene; snRNA; splicing;/){
 			$type = $snrna_splicing;
+		} elsif ($_ =~ /Gene; snRNA;/){
+			$type = $snrna;
 		} elsif ($_ =~ /Gene; sRNA;/){
 			$type = $srna;
 		} elsif ($_ =~ /Gene; tRNA;/){
