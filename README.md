@@ -63,6 +63,10 @@ README.md
 
 * parses the infernal output into a gff file, also outputs a table
 
+**parse_rfam_file.pl**
+
+* parses the Rfam.seed file from rfam into separate files, based on the type
+
 **split_alingments.pl**
 
 * splits a protein alignment by half, and splits the nucleotide sequence based on the number of amino acids/gaps present
