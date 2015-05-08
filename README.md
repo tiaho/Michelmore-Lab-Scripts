@@ -55,6 +55,10 @@ README.md
 
 * parses the Domains_Ages.txt and FinalClusters.Annotations.txt.classified.txt files to a gff3 file
 
+**ortholog_finder.pl**
+
+* finds the reciprocal best hits and prints the lines they are in
+
 **parse_infernal_output.pl**
 
 * parses the infernal output into a gff file
