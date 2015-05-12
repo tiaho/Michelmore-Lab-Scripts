@@ -59,6 +59,10 @@ README.md
 
 * finds the reciprocal best hits and prints the lines they are in
 
+**parse_codeml_output.pl**
+
+* parses the codeml output into 5 files: main table, stats table, and 3 matrices (dN/dS, dN, dS)
+
 **parse_infernal_output.pl**
 
 * parses the infernal output into a gff file
