@@ -3,6 +3,9 @@
 
 # parses the Rfam.seed file from rfam into separate files, based on the type
 
+use strict;
+use warnings;
+
 die "Enter the Rfam.seed file" unless @ARGV == 1;
 my $file = $ARGV[0];
 
