@@ -21,7 +21,6 @@ README.md
 **dn_ds_calculator.pl**
 
 * calculates the divergence of a set of sequences by kn/ks
-* output is named results.txt
 
 **extract_coge_stats.pl**
 
