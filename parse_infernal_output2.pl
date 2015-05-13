@@ -1,7 +1,7 @@
 #!usr/bin/perl
 #parse_infernal_output.pl
 
-# parses the infernal output into a gff file, also outputs a table
+# parses the infernal output into a gff file, and also outputs a table
 
 use strict;
 use warnings;
