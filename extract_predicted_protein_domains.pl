@@ -13,13 +13,14 @@ my ($hmm, $protein, $cds, $prefix) = @ARGV;
 
 
 
+# goes through the HMMER output to extract information
 my ($query, $name, $header);
 my %info;
+my %sequences;
 my $count; # counts the number of domains for each sequence
 my $find_header = "yes"; # finds the header or no
 my $skip = "yes"; # skip line or no
 my $output_table = $prefix . "_domain_table.tsv";
-
 open(my $hmm_file, "<", $hmm) or die "Cannot open $hmm"; # goes through the hmm file and extracts needed information
 open(my $outfile_table, ">", $output_table) or die "Cannot open $output_table"; # opens the output file for the table
 while (<$hmm_file>){
@@ -76,83 +77,101 @@ close($hmm_file);
 close($outfile_table);
 
 
+# goes through the protein file and extracts info
 my $seq;
 my $desired_seq = "no";
 my $output_protein = $prefix . "_extracted_proteins.fasta";
-
+my $rna;
 open (my $protein_file, "<", $protein) or die "Cannot open $protein"; # extracts the predicted protein domains
-open (my $outfile_protein, ">", $output_protein) or die "Cannot open $output_protein";
 while (<$protein_file>){
 	chomp;
-	if ($_ =~ /^>(\S+)\s/){ # header line
+	if ($_ =~ /^>(\S+)/){ # header line
 		$seq = $1;
-		# print "$seq\n";
 		if (defined $info{$seq}){ # matches a sequence we have stored in the hash
 			$desired_seq = "yes"; # will work on the sequence that follows the header
-			# print "\n$seq\n";
 		}
 	} else { # sequence line
 		if ($desired_seq eq "yes"){ # time to extract some protein domains!
 			$desired_seq = "no"; # will not work on another sequence until a match is found in a headers
-			chomp;
-			# print "$_\n";
-
-			for my $start (sort { $a <=> $b } keys %{ $info{$seq} }){
-				for my $stop (sort { $a <=> $b } keys %{ $info{$seq}{$start} }){
-					my $domain = $info{$seq}{$start}{$stop}{domain};
-					my $sig = $info{$seq}{$start}{$stop}{c_evalue};
-
-					my $domain_seq = substr($_, $start - 1, $stop - $start + 1); # start - 1 b/c the seq starts counting at 1 and perl starts counting at 0
-					# print "$_\n$seq\t$start\t$stop\n\n";
-
-					my $print_protein_header = ">" . $seq . "_" . $domain . "_" . $start . "-" . $stop . " c-Evalue=" . $sig; 
-					print $outfile_protein "$print_protein_header\n$domain_seq\n"; # prints the header line and sequence line to the output file
-				}
-			}
+			$rna = $_;
+		} else {
+			$rna .= $_;
 		}
+		$sequences{$seq}{rna} = $rna;
 	}
 }
 close($protein_file);
+
+
+# prints the protein output
+open (my $outfile_protein, ">", $output_protein) or die "Cannot open $output_protein";
+for my $seq (keys %info){
+	for my $start (sort { $a <=> $b } keys %{ $info{$seq} }){
+		for my $stop (sort { $a <=> $b } keys %{ $info{$seq}{$start} }){
+			my $rna_seq = $sequences{$seq}{rna};
+			my $domain = $info{$seq}{$start}{$stop}{domain};
+			my $sig = $info{$seq}{$start}{$stop}{c_evalue};
+
+			my $domain_seq = substr($rna_seq, $start - 1, $stop - $start + 1) or print STDERR "Problem sequence is $seq\n"; # start - 1 b/c the seq starts counting at 1 and perl starts counting at 0
+			my $print_protein_header = ">" . $seq . "_" . $domain . "_" . $start . "-" . $stop . " c-Evalue=" . $sig; 
+			print $outfile_protein "$print_protein_header\n$domain_seq\n"; # prints the header line and sequence line to the output file
+		}
+	}
+}
 close($outfile_protein);
 
 
+__END__ 
 
+# goes through the nucleotide file to extract info
 my $output_nuc = $prefix . "_extracted_cds.fasta";
-
+my $dna;
 open (my $cds_file, "<", $cds) or die "Cannot open $cds"; # extracts the nucleotide sequence for the predicted protein domains
-open (my $outfile_nuc, ">", $output_nuc) or die "Cannot open $output_nuc";
 while (<$cds_file>){
 		chomp;
-	if ($_ =~ /^>(\S+)\s/){ # header line
+		# print "$_\n";
+	if ($_ =~ /^>(\S+)/){ # header line
 		$seq = $1;
-		# print "$seq\n";
+		print "$_\n";
 		if (defined $info{$seq}){ # matches a sequence we have stored in the hash
 			$desired_seq = "yes"; # will work on the sequence that follows the header
-			# print "\n$seq\n";
 		}
 	} else { # sequence line
 		if ($desired_seq eq "yes"){ # time to extract some protein domains!
 			$desired_seq = "no"; # will not work on another sequence until a match is found in a headers
-			chomp;
-			# print "$_\n";
-
-			for my $start (sort { $a <=> $b } keys %{ $info{$seq} }){
-				for my $stop (sort { $a <=> $b } keys %{ $info{$seq}{$start} }){
-					my $domain = $info{$seq}{$start}{$stop}{domain};
-					my $sig = $info{$seq}{$start}{$stop}{c_evalue};
-					my $nuc_start = ($start * 3) - 2;
-					my $nuc_stop = $stop * 3;
-					my $length = ($stop - $start + 1) * 3;
-
-					my $domain_seq = substr($_, $nuc_start - 1, $length); # nuc_start - 1 b/c the seq starts counting at 1 and perl starts counting at 0
-					# print "$_\n$seq\t$start\t$stop\n\n";
-
-					my $print_nuc_header = ">" . $seq . "_" . $domain . "_" . $nuc_start . "-" . $nuc_stop . " c-Evalue=" . $sig; 
-					print $outfile_nuc "$print_nuc_header\n$domain_seq\n"; # prints the header line and sequence line to the output file
-				}
-			}
+			$dna = $_;
+			print "$dna\n"; ######## WAS WORKING HERE
+		} else {
+			$dna .= $_;
+			# print "$dna\n";
 		}
+		$sequences{$seq}{dna} = $dna;
 	}
 }
 close($cds_file);
+
+# __END__
+
+# prints the nucleotide output
+open (my $outfile_nuc, ">", $output_nuc) or die "Cannot open $output_nuc";
+for my $seq (keys %info){
+	for my $start (sort { $a <=> $b } keys %{ $info{$seq} }){
+		for my $stop (sort { $a <=> $b } keys %{ $info{$seq}{$start} }){
+			
+			my $dna_seq = $sequences{$seq}{dna};
+			print "$dna_seq\n";
+			my $domain = $info{$seq}{$start}{$stop}{domain};
+			my $sig = $info{$seq}{$start}{$stop}{c_evalue};
+			my $nuc_start = ($start * 3) - 2;
+			my $nuc_stop = $stop * 3;
+			my $length = ($stop - $start + 1) * 3;
+
+			# my $domain_seq = substr($dna_seq, $nuc_start - 1, $length); # nuc_start - 1 b/c the seq starts counting at 1 and perl starts counting at 0
+			# print "$dna_seq\n$seq\t$start\t$stop\n\n";
+
+			my $print_nuc_header = ">" . $seq . "_" . $domain . "_" . $nuc_start . "-" . $nuc_stop . " c-Evalue=" . $sig; 
+			# print $outfile_nuc "$print_nuc_header\n$domain_seq\n"; # prints the header line and sequence line to the output file
+		}
+	}
+}
 close($outfile_nuc);
